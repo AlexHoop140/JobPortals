@@ -12,7 +12,7 @@
                 <div class="col-12">
                     <h2 class="contact-title text-center">Sign Up</h2>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-8  mx-auto">
                     <div class="form-contact contact_form">
                         <div class="row">
                             <div class="col-12">

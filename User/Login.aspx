@@ -12,8 +12,8 @@
                 <div class="col-12">
                     <h2 class="contact-title text-center">Sign In</h2>
                 </div>
-                <div class="col-lg-8">
-                    <div class="form-contact contact_form">
+                <div class="col-lg-8 mx-auto">
+                    <div class="form-contact contact_form ">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
@@ -21,7 +21,7 @@
                                     <asp:TextBox ID="txtUserName" runat="server" CssClass="form-control" placeholder="Enter Uniqe Username" required></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Password</label>
                                     <asp:TextBox TextMode="Password" ID="txtPassword" runat="server" CssClass="form-control" placeholder="Enter Password" required></asp:TextBox>
