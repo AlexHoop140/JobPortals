@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\ContactList.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\JobList.aspx" />
     <Content Include="Admin\NewJob.aspx" />
@@ -229,7 +230,9 @@
     <Content Include="User\JobDetails.aspx" />
     <Content Include="User\JobListing.aspx" />
     <Content Include="User\Login.aspx" />
+    <Content Include="User\Profile.aspx" />
     <Content Include="User\Register.aspx" />
+    <Content Include="User\ResumeBuild.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -239,6 +242,13 @@
     </Compile>
     <Compile Include="Admin\AdminMaster.Master.designer.cs">
       <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContactList.aspx.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContactList.aspx.designer.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
@@ -304,12 +314,26 @@
     <Compile Include="User\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.designer.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\UserMaster.Master.cs">
       <DependentUpon>UserMaster.Master</DependentUpon>
@@ -367,8 +391,8 @@
     <Content Include="assets\scss\_team.scss" />
     <Content Include="assets\scss\_testimonial.scss" />
     <Content Include="assets\scss\_variables.scss" />
-    <Content Include="connectionString.config" />
     <Content Include="Admin\AdminMaster.Master" />
+    <Content Include="connectionStrings.config" />
     <None Include="packages.config" />
     <Content Include="User\UserMaster.Master" />
     <None Include="Web.Debug.config">
@@ -380,6 +404,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+    <Folder Include="Resumes\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
