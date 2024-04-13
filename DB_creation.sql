@@ -81,3 +81,13 @@ CREATE TABLE Jobs(
 	State VARCHAR(50),
 	CreateDate DATETIME
 )
+
+CREATE TABLE AppliedJobs(
+	AppliedJobId INT PRIMARY KEY IDENTITY,
+	JobId int,
+	UserId int,
+	AppliedDate DATETIME
+)
+
+ALTER TABLE [User] ALTER COLUMN Resume varchar(MAX);
+
