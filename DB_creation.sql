@@ -52,6 +52,7 @@ CREATE TABLE [User](
 	Address VARCHAR(MAX),
 	Country VARCHAR(50)
 )
+ALTER TABLE [User] ALTER COLUMN Resume NVARCHAR(200);
 
 ALTER TABLE [User] ADD UNIQUE (Username);
 
