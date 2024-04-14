@@ -1,19 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace JobPortals.Admin
 {
-    public partial class ContactList : System.Web.UI.Page
+    public partial class UserList : System.Web.UI.Page
     {
         SqlConnection con;
         SqlCommand cmd;
         DataTable dt;
         string str = ConfigurationManager.ConnectionStrings["cs"].ConnectionString;
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["admin"] == null)
@@ -23,15 +25,15 @@ namespace JobPortals.Admin
 
             if (!IsPostBack)
             {
-                showContact();
+                ShowUsers();
             }
         }
 
-        private void showContact()
+        private void ShowUsers()
         {
             string query = string.Empty;
             con = new SqlConnection(str);
-            query = @"SELECT Row_Number() over(Order by (Select 1)) as [Sr.No], ContactId, Name, Email, Subject, Message from Contact";
+            query = @"SELECT Row_Number() over(Order by (Select 1)) as [Sr.No], UserId, Name, Email, Mobile, Country from [User]";
             cmd = new SqlCommand(query, con);
             SqlDataAdapter sda = new SqlDataAdapter(cmd);
             dt = new DataTable();
@@ -43,7 +45,7 @@ namespace JobPortals.Admin
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            showContact();
+            ShowUsers();
         }
 
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -51,18 +53,18 @@ namespace JobPortals.Admin
             try
             {
                 GridViewRow row = GridView1.Rows[e.RowIndex];
-                int contactId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
+                int UserId = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Values[0]);
                 con = new SqlConnection(str);
-                cmd = new SqlCommand("delete from Contact where ContactId=@ContactId", con);
-                cmd.Parameters.AddWithValue("@ContactId", contactId);
+                cmd = new SqlCommand("delete from [User] where UserId=@ContactId", con);
+                cmd.Parameters.AddWithValue("@ContactId", UserId);
                 con.Open();
                 int r = cmd.ExecuteNonQuery();
                 if (r > 0)
                 {
                     //lblMsg.Visible = true;
-                    lblMsg.Text = "Contact Deleted Successfully!";
+                    lblMsg.Text = "User Deleted Successfully!";
                     lblMsg.CssClass = "alert alert-success";
-                    showContact();
+                    ShowUsers();
                 }
                 else
                 {
@@ -71,7 +73,7 @@ namespace JobPortals.Admin
                     lblMsg.CssClass = "alert alert-danger";
                 }
                 GridView1.EditIndex = -1;
-                showContact();
+                ShowUsers();
             }
             catch (Exception ex)
             {
