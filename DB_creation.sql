@@ -60,6 +60,10 @@ SELECT * FROM [User];
 DELETE FROM [User];
 
 -------Part 4----
+ALTER TABLE [User]
+ALTER COLUMN Resume VARCHAR(MAX);
+
+
 CREATE TABLE Jobs(
 	JobId INT PRIMARY KEY IDENTITY(1,1),
 	Title VARCHAR(50),
@@ -80,3 +84,5 @@ CREATE TABLE Jobs(
 	State VARCHAR(50),
 	CreateDate DATETIME
 )
+
+SELECT * FROM Jobs;
