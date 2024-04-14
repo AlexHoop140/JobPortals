@@ -6,11 +6,18 @@
 
     <div style="background-image: url('../Images/bg.jpg'); width: 100%; height: 720px; background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
 
-        <div>
+        <%--<div>
             <asp:Label ID="lblMsg" runat="server"></asp:Label>
+        </div>--%>
+        <div class="btn-toolbar justify-content-between mb-3">
+            <div class="btn-group">
+                <asp:Label ID="lblMsg" runat="server"></asp:Label>
+            </div>
+            <div class="input-group h-25">
+                <asp:HyperLink ID="linkBack" runat="server" NavigateUrl="~/Admin/JobList.aspx" CssClass="btn btn-secondary" Visible="false">< Back</asp:HyperLink>
+            </div>
         </div>
-
-        <h3 class="text-center">Add Job</h3>
+        <h3 class="text-center"><%Response.Write(Session["title"]); %></h3>
         <div class="row mr-lg-5 ml-lg-5 mb-3">
             <div class="col-md-6 pt-3">
                 <label for="txtJobTitle" style="font-weight: 600;">Job Title</label>
@@ -93,7 +100,7 @@
 
             <div class="col-md-6 pt-3">
                 <label for="fuCompanyLogo" style="font-weight: 600;">Compapy/Organization Logo</label>
-                <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extension only" required />
+                <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extension only"/>
             </div>
         </div>
 

@@ -67,8 +67,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\ContactList.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\JobList.aspx" />
     <Content Include="Admin\NewJob.aspx" />
+    <Content Include="Admin\ViewResume.aspx" />
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\flaticon.css" />
@@ -82,6 +85,7 @@
     <Content Include="assets\css\slicknav.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\css\styles.css" />
+    <Content Include="assets\css\theme.css" />
     <Content Include="assets\css\themify-icons.css" />
     <Content Include="assets\fonts\fa-brands-400.svg" />
     <Content Include="assets\fonts\fa-regular-400.svg" />
@@ -150,6 +154,8 @@
     <Content Include="assets\img\icon\job-list2.png" />
     <Content Include="assets\img\icon\job-list3.png" />
     <Content Include="assets\img\icon\job-list4.png" />
+    <Content Include="assets\img\icon\editPencil.svg" />
+    <Content Include="assets\img\icon\trashIcon.svg" />
     <Content Include="assets\img\logo\form-iocn.jpg" />
     <Content Include="assets\img\logo\loder.jpg" />
     <Content Include="assets\img\logo\logo.png" />
@@ -219,13 +225,16 @@
     <Content Include="assets\js\vendor\jquery-1.12.4.min.js" />
     <Content Include="assets\js\vendor\modernizr-3.5.0.min.js" />
     <Content Include="assets\js\wow.min.js" />
+    <Content Include="Images\No_image.png" />
     <Content Include="User\About.aspx" />
     <Content Include="User\Contact.aspx" />
     <Content Include="User\Default.aspx" />
     <Content Include="User\JobDetails.aspx" />
     <Content Include="User\JobListing.aspx" />
     <Content Include="User\Login.aspx" />
+    <Content Include="User\Profile.aspx" />
     <Content Include="User\Register.aspx" />
+    <Content Include="User\ResumeBuild.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +245,13 @@
     <Compile Include="Admin\AdminMaster.Master.designer.cs">
       <DependentUpon>AdminMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ContactList.aspx.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContactList.aspx.designer.cs">
+      <DependentUpon>ContactList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -243,12 +259,26 @@
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\JobList.aspx.cs">
+      <DependentUpon>JobList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\JobList.aspx.designer.cs">
+      <DependentUpon>JobList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\NewJob.aspx.cs">
       <DependentUpon>NewJob.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\NewJob.aspx.designer.cs">
       <DependentUpon>NewJob.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ViewResume.aspx.cs">
+      <DependentUpon>ViewResume.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ViewResume.aspx.designer.cs">
+      <DependentUpon>ViewResume.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User\About.aspx.cs">
@@ -293,12 +323,26 @@
     <Compile Include="User\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\ResumeBuild.aspx.designer.cs">
+      <DependentUpon>ResumeBuild.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\UserMaster.Master.cs">
       <DependentUpon>UserMaster.Master</DependentUpon>
@@ -356,8 +400,8 @@
     <Content Include="assets\scss\_team.scss" />
     <Content Include="assets\scss\_testimonial.scss" />
     <Content Include="assets\scss\_variables.scss" />
-    <Content Include="connectionString.config" />
     <Content Include="Admin\AdminMaster.Master" />
+    <Content Include="connectionStrings.config" />
     <None Include="packages.config" />
     <Content Include="User\UserMaster.Master" />
     <None Include="Web.Debug.config">
@@ -368,7 +412,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Folder Include="Resumes\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

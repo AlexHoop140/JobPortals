@@ -21,96 +21,194 @@ namespace JobPortals.Admin
             {
                 Response.Redirect("../User/Login.aspx");
             }
+            Session["title"] = "Add New Job";
+            if (!IsPostBack)
+            {
+                fillData();
+            }
+        }
+
+        private void fillData()
+        {
+            if (Request.QueryString["id"] != null)
+            {
+                con = new SqlConnection(str);
+                query = "SELECT * FROM Jobs WHERE JobId = @JobId";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"]);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        txtJobTitle.Text = dr["Title"].ToString();
+                        txtNoOfPost.Text = dr["NoOfPost"].ToString();
+                        txtDescription.Text = dr["Description"].ToString();
+                        txtQualification.Text = dr["Qualification"].ToString();
+                        txtExperience.Text = dr["Experience"].ToString();
+                        txtSpecialization.Text = dr["Specialization"].ToString();
+                        txtLastDate.Text = Convert.ToDateTime(dr["LastDateToApply"]).ToString("yyyy-MM-dd");
+                        txtSalary.Text = dr["Salary"].ToString();
+                        ddlJobType.SelectedValue = dr["JobType"].ToString();
+                        txtCompany.Text = dr["CompanyName"].ToString();
+                        txtWebsite.Text = dr["Website"].ToString();
+                        txtEmail.Text = dr["Email"].ToString();
+                        txtAddress.Text = dr["Address"].ToString();
+                        ddlCountry.SelectedValue = dr["Country"].ToString();
+                        txtState.Text = dr["State"].ToString();
+                        btnAdd.Text = "Update";
+                        linkBack.Visible = true;
+                        Session["title"] = "Edit Job";
+                    }
+                }
+                else
+                {
+                    lblMsg.Text = "No job found!";
+                    lblMsg.CssClass = "alert alert-danger";
+                }
+                dr.Close();
+                con.Close();
+            }
         }
 
         protected void btn_AddClick(object sender, EventArgs e)
         {
             try
             {
-                string concatQuery, imagePath = string.Empty;
+                string type, concatQuery, imagePath = string.Empty;
                 bool isValidToExecute = false;
                 con = new SqlConnection(str);
-
-                //if (fuCompanyLogo.HasFile)
-                //{
-                //    if (isValidExtension(fuCompanyLogo.FileName))
-                //    {
-                //        concatQuery = "";
-                //    }
-                //    else
-                //    {
-                //        lblMsg.Visible = true;
-                //        lblMsg.Text = "Invalid file format!";
-                //    }
-                //}
-                //else
-                //{
-
-                //}
-
-                query = @"INSERT INTO Jobs VALUES(@Title, @NoOfPost, @Description, 
-                         @Qualification, @Experience, @Specialization,@LastDateToApply,
-                        @Salary,@JobType,@CompanyName,@CompanyImage,@Website,@Email,@Address,@Country,@State,@CreateDate)";
-                DateTime time = DateTime.Now;
-                cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Title", txtJobTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@NoOfPost", txtNoOfPost.Text.Trim());
-                cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
-                cmd.Parameters.AddWithValue("@Qualification", txtQualification.Text.Trim());
-                cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
-                cmd.Parameters.AddWithValue("@Specialization", txtSpecialization.Text.Trim());
-                cmd.Parameters.AddWithValue("@LastDateToApply", txtLastDate.Text.Trim());
-                cmd.Parameters.AddWithValue("@Salary", txtSalary.Text.Trim());
-                cmd.Parameters.AddWithValue("@JobType", ddlJobType.SelectedValue);
-                cmd.Parameters.AddWithValue("@CompanyName", txtCompany.Text.Trim());
-                cmd.Parameters.AddWithValue("@Website", txtJobTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@Email", txtJobTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
-                cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
-                cmd.Parameters.AddWithValue("@State", txtJobTitle.Text.Trim());
-                cmd.Parameters.AddWithValue("@CreateDate", time.ToString("yyyy-MM-dd HH:mm:ss"));
-
-                if(fuCompanyLogo.HasFile)
+                if (Request.QueryString["id"] != null)
                 {
-
-                    if (isValidExtension(fuCompanyLogo.FileName))
+                    if (fuCompanyLogo.HasFile)
                     {
-                        Guid ojb = Guid.NewGuid();
-                        imagePath = "Images/" + ojb.ToString() + fuCompanyLogo.FileName;
-                        fuCompanyLogo.PostedFile.SaveAs(Server.MapPath("~/Images/") + ojb.ToString() + fuCompanyLogo.FileName);
-                        cmd.Parameters.AddWithValue("@CompanyImage", imagePath);
-                        isValidToExecute = true;
+                        if (isValidExtension(fuCompanyLogo.FileName))
+                        {
+                            concatQuery = "CompanyImage= @CompanyImage,";
+                        }
+                        else
+                        {
+                            concatQuery = string.Empty;
+                        }
                     }
                     else
                     {
-                        lblMsg.Text = "Please select .jgp, .jpeg, .png file for logo";
-                        lblMsg.CssClass = "alert alert-danger";
+                        concatQuery = string.Empty;
                     }
-                    
+                    query = @"UPDATE Jobs SET Title = @Title, NoOfPost = @NoOfPost, Description = @Description, 
+                         Qualification = @Qualification, Experience = @Experience, Specialization = @Specialization, LastDateToApply = @LastDateToApply,
+                        Salary = @Salary, JobType = @JobType, CompanyName = @CompanyName," + concatQuery + @"Website = @Website, Email = @Email, Address = @Address, Country = @Country, State = @State WHERE JobId = @JobId";
+                    type = "updated";
+
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Title", txtJobTitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NoOfPost", txtNoOfPost.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Qualification", txtQualification.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Specialization", txtSpecialization.Text.Trim());
+                    cmd.Parameters.AddWithValue("@LastDateToApply", txtLastDate.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Salary", txtSalary.Text.Trim());
+                    cmd.Parameters.AddWithValue("@JobType", ddlJobType.SelectedValue);
+                    cmd.Parameters.AddWithValue("@CompanyName", txtCompany.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Website", txtWebsite.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                    cmd.Parameters.AddWithValue("@State", txtState.Text.Trim());
+                    cmd.Parameters.AddWithValue("@JobId", Request.QueryString["id"].ToString());
+
+                    if (fuCompanyLogo.HasFile)
+                    {
+
+                        if (isValidExtension(fuCompanyLogo.FileName))
+                        {
+                            Guid ojb = Guid.NewGuid();
+                            imagePath = "Images/" + ojb.ToString() + fuCompanyLogo.FileName;
+                            fuCompanyLogo.PostedFile.SaveAs(Server.MapPath("~/Images/") + ojb.ToString() + fuCompanyLogo.FileName);
+                            cmd.Parameters.AddWithValue("@CompanyImage", imagePath);
+                            isValidToExecute = true;
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Please select .jgp, .jpeg, .png file for logo";
+                            lblMsg.CssClass = "alert alert-danger";
+                        }
+
+                    }
+                    else
+                    {
+                        isValidToExecute = true;
+                    }
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@CompanyImage", imagePath);
-                    isValidToExecute = true;
-                }
+                    query = @"INSERT INTO Jobs VALUES(@Title, @NoOfPost, @Description, 
+                         @Qualification, @Experience, @Specialization,@LastDateToApply,
+                        @Salary,@JobType,@CompanyName,@CompanyImage,@Website,@Email,@Address,@Country,@State,@CreateDate)";
 
+                    type= "saved";
+
+                    DateTime time = DateTime.Now;
+                    cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@Title", txtJobTitle.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NoOfPost", txtNoOfPost.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Description", txtDescription.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Qualification", txtQualification.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Experience", txtExperience.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Specialization", txtSpecialization.Text.Trim());
+                    cmd.Parameters.AddWithValue("@LastDateToApply", txtLastDate.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Salary", txtSalary.Text.Trim());
+                    cmd.Parameters.AddWithValue("@JobType", ddlJobType.SelectedValue);
+                    cmd.Parameters.AddWithValue("@CompanyName", txtCompany.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Website", txtWebsite.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Country", ddlCountry.SelectedValue);
+                    cmd.Parameters.AddWithValue("@State", txtState.Text.Trim());
+                    cmd.Parameters.AddWithValue("@CreateDate", time.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    if (fuCompanyLogo.HasFile)
+                    {
+
+                        if (isValidExtension(fuCompanyLogo.FileName))
+                        {
+                            Guid ojb = Guid.NewGuid();
+                            imagePath = "Images/" + ojb.ToString() + fuCompanyLogo.FileName;
+                            fuCompanyLogo.PostedFile.SaveAs(Server.MapPath("~/Images/") + ojb.ToString() + fuCompanyLogo.FileName);
+                            cmd.Parameters.AddWithValue("@CompanyImage", imagePath);
+                            isValidToExecute = true;
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Please select .jgp, .jpeg, .png file for logo";
+                            lblMsg.CssClass = "alert alert-danger";
+                        }
+
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@CompanyImage", imagePath);
+                        isValidToExecute = true;
+                    }  
+                }
                 if (isValidToExecute)
                 {
                     con.Open();
                     int res = cmd.ExecuteNonQuery();
                     if (res > 0)
                     {
-                        lblMsg.Text = "Job save successfully";
+                        lblMsg.Text = "Job " + type + " successfully!";
                         lblMsg.CssClass = "alert alert-success";
                         clear();
                     }
                     else
                     {
-                        lblMsg.Text = "Cannot save new Job, try again!";
+                        lblMsg.Text = "Cannot" + type + "the job, try again!";
                         lblMsg.CssClass = "alert alert-danger";
                     }
                 }
-
             }
             catch (Exception ex)
             {

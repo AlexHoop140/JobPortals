@@ -52,6 +52,7 @@ CREATE TABLE [User](
 	Address VARCHAR(MAX),
 	Country VARCHAR(50)
 )
+ALTER TABLE [User] ALTER COLUMN Resume NVARCHAR(200);
 
 ALTER TABLE [User] ADD UNIQUE (Username);
 
@@ -85,4 +86,16 @@ CREATE TABLE Jobs(
 	CreateDate DATETIME
 )
 
+<<<<<<< HEAD
 SELECT * FROM Jobs;
+=======
+CREATE TABLE AppliedJobs(
+	AppliedJobId INT PRIMARY KEY IDENTITY,
+	JobId int,
+	UserId int,
+	AppliedDate DATETIME
+)
+
+ALTER TABLE [User] ALTER COLUMN Resume varchar(MAX);
+
+>>>>>>> 048723e336010a15bf4dc812695bc6d22d5f5ea0
