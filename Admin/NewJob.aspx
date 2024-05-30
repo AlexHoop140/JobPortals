@@ -29,7 +29,10 @@
                 <label for="txtNoOfPost" style="font-weight: 600;">Number Of Post</label>
                 <asp:TextBox ID="txtNoOfPost" runat="server" CssClass="form-control" placeholder="Enter Number Of Position" TextMode="Number" required>
                 </asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtNoOfPost" ErrorMessage="Please enter a value." Display="Dynamic" CssClass="text-danger"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtNoOfPost" ErrorMessage="Please enter a non-negative number." ValidationExpression="^\d+$" Display="Dynamic" CssClass="text-danger"></asp:RegularExpressionValidator>
             </div>
+
         </div>
 
         <div class="row mr-lg-5 ml-lg-5 mb-3">
@@ -100,7 +103,7 @@
 
             <div class="col-md-6 pt-3">
                 <label for="fuCompanyLogo" style="font-weight: 600;">Compapy/Organization Logo</label>
-                <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extension only"/>
+                <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control" ToolTip=".jpg, .jpeg, .png extension only" />
             </div>
         </div>
 

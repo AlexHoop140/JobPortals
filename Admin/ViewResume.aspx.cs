@@ -101,7 +101,7 @@ namespace JobPortals.Admin
                 if (row.RowIndex == GridView1.SelectedIndex)
                 {
                     HiddenField jobId = (HiddenField)row.FindControl("hdnJobId");
-                    Response.Redirect("JobList.aspx?id=" + jobId.Value);
+                    Response.Redirect("ViewResume.aspx?id=" + jobId.Value);
                 }
                 else
                 {

@@ -18,7 +18,7 @@
                 <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-bordered"
                     EmptyDataText="No record to display!" AutoGenerateColumns="false" AllowPaging="true" PageSize="5"
                     OnPageIndexChanging="GridView1_PageIndexChanging" DataKeyNames="AppliedJobId" OnRowDeleting="GridView1_RowDeleting"
-                    OnRowDataBound="GridView1_RowDataBound" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                     OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                     <Columns>
                         <asp:BoundField DataField="Sr.No" HeaderText="Sr.No">
                             <ItemStyle HorizontalAlign="Center" />
